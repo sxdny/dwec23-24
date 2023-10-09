@@ -64,13 +64,19 @@ mitjanaAny2020 > 30 ? superatAny2020 = true : superatAny2020 = false;
 
 // mensajes mostrando las temperaturas y si superaron los 30 grados:
 
-console.log("La temperatura media del año 2010 es de: " + mitjanaAny2010);
-console.log("¿Superó los 30 grados? " + superatAny2010);
+console.log("La temperatura media del año 2010 en Celsius es de: " + mitjanaAny2010);
+console.log("La temperatura media del año 2010 en Fahrenheit es de: " + mitjanaAny2010Fahrenheit);
+console.log("La temperatura media del año 2010 en Kelvin es de: " + mitjanaAny2010Kelvin);
+console.log("¿Superó los 30 grados Celsius? " + superatAny2010);
 
-console.log("La temperatura media del año 2015 es de: " + mitjanaAny2015);
+console.log("La temperatura media del año 2015 en Celsius es de: " + mitjanaAny2015);
+console.log("La temperatura media del año 2015 en Fahrenheit es de: " + mitjanaAny2015Fahrenheit);
+console.log("La temperatura media del año 2015 en Kelvin es de: " + mitjanaAny2015Kelvin);
 console.log("¿Superó los 30 grados? " + superatAny2015);
 
-console.log("La temperatura media del año 2020 es de: " + mitjanaAny2020);
+console.log("La temperatura media del año 2020 en Celsius es de: " + mitjanaAny2020);
+console.log("La temperatura media del año 2020 en Fahrenheit es de: " + mitjanaAny2020Fahrenheit);
+console.log("La temperatura media del año 2020 en Kelvin es de: " + mitjanaAny2020Kelvin);
 console.log("¿Superó los 30 grados? " + superatAny2020);
 
 
