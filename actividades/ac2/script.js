@@ -27,26 +27,13 @@ let mitjanaAny2020 = (any2020Agost + any2020Juliol + any2020Juny) / 3;
 
 // si ha superado los 30 grados, mensaje que sí lo ha hecho
 // sino, mensaje de que no lo ha hecho
-if (mitjanaAny2010 > 30) {
-    console.log("La media del año 2010 es mayor a 30 grados Celsius.")
-}
-else {
-    console.log("La media del año 2010 NO es mayor a 30 grados Celsius.");
-}
 
-if (mitjanaAny2015 > 30) {
-    console.log("La media del año 2015 es mayor a 30 grados Celsius.")
-}
-else {
-    console.log("La media del año 2015 NO es mayor a 30 grados Celsius.");
-}
+mitjanaAny2010 > 30 ? console.log("La media del año 2010 es mayor a 30 grados Celsius.") : console.log("La media del año 2010 NO es mayor a 30 grados Celsius.");
 
-if (mitjanaAny2020 > 30) {
-    console.log("La media del año 2025 es mayor a 30 grados Celsius.")
-}
-else {
-    console.log("La media del año 2025 NO es mayor a 30 grados Celsius.");
-}
+mitjanaAny2015 > 30 ? console.log("La media del año 2015 es mayor a 30 grados Celsius.") : console.log("La media del año 2015 NO es mayor a 30 grados Celsius.");
+
+mitjanaAny2020 > 30 ? console.log("La media del año 2020 es mayor a 30 grados Celsius.") : console.log("La media del año 2020 NO es mayor a 30 grados Celsius.");
+
 
 // Actividad 2.3
 
@@ -69,26 +56,9 @@ let superatAny2020 = false;
 
 // si ha superado los 30 grados, = true; sino, = false:
 
-if (mitjanaAny2010 > 30) {
-    superatAny2010 = true;
-}
-else {
-    superatAny2010 = false;
-}
-
-if (mitjanaAny2015 > 30) {
-    superatAny2015 = true;
-}
-else {
-    superatAny2015 = false;
-}
-
-if (mitjanaAny2020 > 30) {
-    superatAny2020 = true;
-}
-else {
-    superatAny2020 = false;
-}
+mitjanaAny2010 > 30 ? superatAny2010 = true : superatAny2010 = false;
+mitjanaAny2015 > 30 ? superatAny2015 = true : superatAny2015 = false;
+mitjanaAny2020 > 30 ? superatAny2020 = true : superatAny2020 = false;
 
 // Actividad 2.5
 
