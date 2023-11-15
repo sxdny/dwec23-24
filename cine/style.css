@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Que los tamaños sean los nuestros */
+}
+
+body {
+    height: 100vh;
+    background-color: #222;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    text-align: center;
+}
+
+.contenidor-pelicula {
+    margin: 2rem 0;
+}
+
+.contenidor-pelicula select {
+    padding: 0.5rem 2rem;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 50px;
+    font-size: 14px;
+    margin-left: 1rem;
+    gap: 10px;
+}
+
+.fila {
+    display: flex;
+    flex-direction: column;
+}
+
+.contenidor {
+    margin: 2rem 0rem;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.asiento {
+    background-color: #444451;
+    height: 12px;
+    width: 15px;
+    margin: 3px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.asiento:not(.ocupado):hover {
+    cursor: pointer;
+    transform: scale(1.3);
+}
+
+.fila:nth-of-type(3) {
+    margin-right: 12px;
+}
+
+.asiento.seleccionado {
+    background-color: #6FEAF6;
+}
+
+.asiento.ocupado {
+    background-color: white;
+}
+
+.leyenda {
+    background-color: rgba(0,0,0,0.2);
+    padding: 1rem 2rem;
+    align-self: center;
+    border-radius: 50px;
+    color: #777;
+    list-style: none;
+
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.leyenda .asiento:not(.ocupat):hover {
+    cursor: default;
+    transform: scale(1);
+}
+
+.leyenda li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.leyenda li small {
+    margin-left: 2px;
+}
+
+.pantalla {
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    margin: 1rem 0;
+    transform: rotateY(-45deg);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+p.text {
+    margin: 5px 0;
+}
+
+p.text span {
+    color: #6fea6f;
+}
+
+.asientos {
+    display: flex;
+    flex-direction: column;
+}
