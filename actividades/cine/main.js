@@ -45,7 +45,6 @@ function ompleuUi() {
     const indexPeliculaSeleccionada = localStorage.getItem(
         "indexPeliculaSeleccionada"
     );
-
     if (indexPeliculaSeleccionada !== null) {
         peliculaSelect.selectedIndex = indexPeliculaSeleccionada;
     }
@@ -59,13 +58,12 @@ function ompleuUi() {
     }
 }
 
-/*EVENTOS*/
 contenidor.addEventListener("click", (e) => {
-    // console.log(e.target);
     if (
         e.target.classList.contains("asiento") &&
         !e.target.classList.contains("ocupado")
-    ) {
+        )
+    {
         e.target.classList.toggle("seleccionado");
         actualitzaSeleccioSeients();
     }
