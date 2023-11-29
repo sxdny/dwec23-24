@@ -10,58 +10,71 @@
 
 <body>
 
+    <div class="titulo">
+        <h1>Juego del ahorcado con <span class="jsh">JS</span></h1>
+    </div>
+
     <div id="app">
 
-        <div class="titulo">
-            <h1>Jueco del ahorcado con <span class="jsh">JS</span></h1>
-        </div>
-
-        <div class="palabra">
-            <!-- Aquí no vas a encontrar la palabra -->
-            <ul id="wordToGuess">
-
-            </ul>
-        </div>
-
-        <div id="teclado" class="teclado">
-
-            <div class="fila">
-                <button class="letra">A</button>
-                <button class="letra">B</button>
-                <button class="letra">C</button>
-                <button class="letra">D</button>
-                <button class="letra">E</button>
-                <button class="letra">H</button>
-                <button class="letra">I</button>
-                <button class="letra">J</button>
-                <button class="letra">K</button>
-            </div>
-            <div class="fila">
-                <button class="letra">L</button>
-                <button class="letra">M</button>
-                <button class="letra">N</button>
-                <button class="letra">Ñ</button>
-                <button class="letra">O</button>
-                <button class="letra">P</button>
-                <button class="letra">Q</button>
-                <button class="letra">R</button>
-                <button class="letra">S</button>
-            </div>
-            <div class="fila">
-                <button class="letra">T</button>
-                <button class="letra">U</button>
-                <button class="letra">V</button>
-                <button class="letra">W</button>
-                <button class="letra">X</button>
-                <button class="letra">Y</button>
-                <button class="letra">Z</button>
+        <div id="juego">
+            <div id="mensaje" class="d-none">
+                <h2 id="mensajeFinal"></h2>
+                <button id="reset">Jugar de nuevo</button>
             </div>
 
-        </div>
+            <div id="palabra" class="palabra d-none">
+                <!-- Aquí no vas a encontrar la palabra -->
+                <ul id="wordToGuess">
 
-        <div class="infoPartida">
-            <p>Has cometido: <span id="errores">0</span> errores en <span id="intentos">0</span> intentos</p>
-            <p>Tiempo restante: <span id="contador"></span>0:00:00</span>s</p>
+                </ul>
+            </div>
+
+
+            <button id="startGame">Empezar a jugar</button>
+
+            <div id="teclado" class="d-none teclado">
+
+
+                <div class="fila">
+                    <button class="letra">A</button>
+                    <button class="letra">B</button>
+                    <button class="letra">C</button>
+                    <button class="letra">D</button>
+                    <button class="letra">E</button>
+                    <button class="letra">F</button>
+                    <button class="letra">G</button>
+                    <button class="letra">H</button>
+                    <button class="letra">I</button>
+                    <button class="letra">J</button>
+                    <button class="letra">K</button>
+                </div>
+                <div class="fila">
+                    <button class="letra">L</button>
+                    <button class="letra">M</button>
+                    <button class="letra">N</button>
+                    <button class="letra">Ñ</button>
+                    <button class="letra">O</button>
+                    <button class="letra">P</button>
+                    <button class="letra">Q</button>
+                    <button class="letra">R</button>
+                    <button class="letra">S</button>
+                </div>
+                <div class="fila">
+                    <button class="letra">T</button>
+                    <button class="letra">U</button>
+                    <button class="letra">V</button>
+                    <button class="letra">W</button>
+                    <button class="letra">X</button>
+                    <button class="letra">Y</button>
+                    <button class="letra">Z</button>
+                </div>
+
+                <div class="infoPartida">
+                    <p>Has cometido: <span id="errores">0</span> errores en <span id="intentos">0</span> intentos</p>
+                    <p>Tiempo restante: <span id="tiempo">3:00</span>s</p>
+                </div>
+            </div>
+
         </div>
 
     </div>
