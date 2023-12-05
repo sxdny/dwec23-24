@@ -1,5 +1,4 @@
 // obtener los elementos del documento HTML
-
 const app = document.getElementById('app');
 
 const teclado = document.getElementById('teclado');
@@ -20,7 +19,33 @@ const intentosDOM = document.getElementById('intentos');
 const palabraDOM = document.getElementById('palabra');
 const wordToGuessDOM = document.getElementById('wordToGuess');
 
+// seleccionar todos los botones con data-categoria
+const categorias = document.querySelectorAll('[data-categoria]');
+
+let categoryMessage = document.getElementById('categoryMessage');
+
+const menu = document.getElementById('menu');
+
+console.log(menu);
+
+// añadir evento click a cada botón
+categorias.forEach((categoria) => {
+    categoria.addEventListener('click', (e) => {
+        // obtener el valor del data-categoria
+        const categoriaSeleccionada = categoria.getAttribute('data-categoria');
+
+        seleccionarTipoPalabra(categoriaSeleccionada);
+        console.log(categoriaSeleccionada);
+
+    });
+});
+
 let contador;
+
+// flag para saber si el contador está activo o no
+let flagContador = false;
+
+let lIntentos = 10;
 
 
 // array de botones del documento
@@ -31,7 +56,7 @@ let opcUsuario = 0;
 let arrPalabras = [
 
     {
-        "tipo": "tech",
+        "tipo": "perifericos",
         "palabras": [
             "Ordenador",
             "Monitor",
@@ -52,45 +77,47 @@ let arrPalabras = [
     }
 ];
 
-// randomizar el opcUsuario
-// de momento es así, pero luego será con un prompt
-opcUsuario = Math.floor(Math.random() * arrPalabras.length);
+let wordToGuess = "";
 
-// seleccionar una palabra random después que el usuario haya elegido el tipo de palabra que quiere.
+// función para seleccionar el tipo de palabra
+function seleccionarTipoPalabra(categoria) {
 
-// función que convierte una letra de la palabra random con tilde a una letra sin tilde
-// function convertirLetraTilde(letra) {
-//     switch (letra) {
-//         case "á":
-//             return "a";
-//         case "é":
-//             return "e";
-//         case "í":
-//             return "i";
-//         case "ó":
-//             return "o";
-//         case "ú":
-//             return "u";
-//         case "ü":
-//             return "u";
-//         default:
-//             return letra;
-//     }
-// }
+    // seleccionamos una palabra random del array de palabras según la categoría seleccionada
 
-let wordToGuess = arrPalabras[opcUsuario].palabras[Math.floor(Math.random() * arrPalabras[opcUsuario].palabras.length)];
+    // recorrer el array de palabras
+    arrPalabras.forEach((palabra) => {
+        // si la categoría seleccionada es igual a la categoría del array
+        if (categoria === palabra.tipo) {
 
-// mostrar la palabra en la consola
-console.log("Palabra a averiguar: ", wordToGuess);
+            // seleccionar una palabra random del array de palabras
+            wordToGuess = palabra.palabras[Math.floor(Math.random() * palabra.palabras.length)];            
+            // convertir la palabra a array
+            wordToGuess = wordToGuess.split("");
 
-// convertir la palabra a array
-wordToGuess = wordToGuess.split("");
+            console.log("Palabra a averiguar: ", wordToGuess);
 
-// este split es simplementa para mostrar bien la palabra
-// mostrar la palabra en el DOM
-wordToGuess.forEach(() => {
-    wordToGuessDOM.innerHTML += `<li>?</li>`;
-});
+            // este split es simplementa para mostrar bien la palabra
+            // mostrar la palabra en el DOM
+            wordToGuess.forEach(() => {
+                wordToGuessDOM.innerHTML += `<li>?</li>`;
+            });
+
+            // empezar el juego
+            menu.style.display = "none";
+            categoryMessage.style.display = "none";
+
+            teclado.classList.remove("d-none");
+            palabraDOM.classList.remove("d-none");
+            wordToGuessDOM.classList.remove("d-none");
+        }
+        else {
+            console.log("No hay palabras de este tipo.");
+            console.log("Palabra a averiguar: ", wordToGuess);
+        }
+    });
+
+}
+
 
 let intentos = 0;
 let errores = 0;
@@ -114,18 +141,44 @@ for (let i = 0; i < botones.length; i++) {
             e.target.setAttribute("disabled", "disabled");
         }
 
-
         intentos++;
+
+        if (errores == lIntentos) {
+            clearInterval(contador);
+            console.log("Se acabó el tiempo.", contador);
+            console.log("Palabra completa.");
+            teclado.classList.add("d-none");
+
+            // mostrar mensaje de perdedor
+            mensaje.classList.remove("d-none");
+            mensajeFinal.classList.add("text-danger");
+            mensajeFinal.innerHTML = "Has llegado al límite de errores!";
+
+            // mostrar la palabra
+
+            let palabraCorrecta = document.getElementById('palabraCorrecta');
+
+            palabraCorrecta.innerHTML = "La palabra era: " + wordToGuess.join("");
+
+            palabraDOM.classList.add("d-none");
+            flagContador = false;
+
+        }
+
         intentosDOM.innerHTML = intentos;
 
         if (checkWord()) {
             console.log("Has ganado!");
             console.log(teclado);
-
         }
     });
 
     botones[i].addEventListener("click", (e) => {
+        // empezar el cronómetro
+        if (!flagContador) {
+            tiempo();
+        }
+
         if (
             e.target.classList.contains("letra") &&
             !e.target.classList.contains("seleccionada")
@@ -178,6 +231,7 @@ function checkWord() {
 
         // mensaje de ganador
         mensaje.classList.remove("d-none");
+        mensajeFinal.classList.add("text-success");
         mensajeFinal.innerHTML = "Has ganado!";
 
     }
@@ -189,8 +243,11 @@ function tiempo() {
     let tiempo = 180;
     let minutos = 0;
     let segundos = 0;
+
+    flagContador = true;
+
     contador = setInterval(() => {
-        tiempo= tiempo - 30;
+        tiempo--;
 
         segundos = tiempo % 60;
         minutos = Math.floor(tiempo / 60);
@@ -210,6 +267,8 @@ function tiempo() {
             mensajeFinal.classList.add("text-danger");
             teclado.classList.add("d-none");
             palabraDOM.classList.add("d-none");
+
+            flagContador = false;
         }
 
         tiempoDOM.innerHTML = minutos + ":" + segundos;
@@ -217,24 +276,12 @@ function tiempo() {
 }
 
 // función para que cuando el jugador empieze a jugar, se inicie un contador de tiempo
-startGame.addEventListener("click", () => {
-    tiempo();
-    startGame.classList.add("d-none");
-    teclado.classList.remove("d-none");
-    palabraDOM.classList.remove("d-none");
-    wordToGuessDOM.classList.remove("d-none");
-});
-
-
-// Cambia el color de fondo del body cuando el mouse pasa por encima del botón
-startGame.addEventListener('mouseover', function () {
-    document.body.classList.add('hoverStartGame');
-});
-
-// Cambia el color de fondo del body de nuevo al original cuando el mouse sale del botón
-startGame.addEventListener('mouseout', function () {
-    document.body.classList.remove('hoverStartGame');
-});
+// startGame.addEventListener("click", () => {
+//     startGame.classList.add("d-none");
+//     teclado.classList.remove("d-none");
+//     palabraDOM.classList.remove("d-none");
+//     wordToGuessDOM.classList.remove("d-none");
+// });
 
 // función para resetear el juego
 reset.addEventListener("click", () => {

@@ -17,9 +17,66 @@
     <div id="app">
 
         <div id="juego">
+
+            <h2 id="categoryMessage" >Seleccione una categoría para comenzar:</h2>
+
+            <div id="menu">
+                <button class="categoria" data-categoria="paises">
+                    <img src="https://images.unsplash.com/photo-1600633349333-eebb43d01e23?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="">
+                    <p>Países</p>
+                </button>
+
+                <button disabled class="categoria" data-categoria="animales">
+                    <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="" srcset="">
+                    <p>Animales</p>
+
+                    <!-- poner un mensaje de "Coming Soon..." -->
+                </button>
+
+                <button class="categoria" data-categoria="perifericos">
+                    <img src="https://images.unsplash.com/photo-1649190754785-ddb26686610f?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="" srcset="">
+                    <p>Periféricos</p>
+                </button>
+
+                <button disabled class="categoria" data-categoria="colores">
+                    <img src="https://images.unsplash.com/photo-1558470598-a5dda9640f68?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="" srcset="">
+                    <p>Colores</p>
+                </button>
+
+                <button disabled class="categoria" data-categoria="marcas">
+                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="" srcset="">
+                    <p>Marcas</p>
+                </button>
+
+                <button disabled class="categoria" data-categoria="prendas">
+                    <img src="https://images.unsplash.com/photo-1542060748-10c28b62716f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y2xvdGhlc3xlbnwwfHwwfHx8MA%3D%3D"
+                        alt="" srcset="">
+                    <p>Prendas</p>
+                </button>
+
+                <button disabled class="categoria" data-categoria="smartphoneBrands">
+                    <img src="https://images.unsplash.com/photo-1604671368394-2240d0b1bb6c?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="" srcset="">
+                    <p>Smartphone brands</p>
+                </button>
+
+                <button disabled class="categoria" data-categoria="navegadores">
+                    <img src="https://images.unsplash.com/photo-1655196601100-8bfb26cf99e9?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="" srcset="">
+                    <p>Navegadores</p>
+                </button>
+
+            </div>
+
             <div id="mensaje" class="d-none">
                 <h2 id="mensajeFinal"></h2>
-                <button id="reset">Jugar de nuevo</button>
+                <h2 id="palabraCorrecta">
+                    <h2 />
+                    <button id="reset">Jugar de nuevo</button>
             </div>
 
             <div id="palabra" class="palabra d-none">
@@ -28,9 +85,6 @@
 
                 </ul>
             </div>
-
-
-            <button id="startGame">Empezar a jugar</button>
 
             <div id="teclado" class="d-none teclado">
 
@@ -70,7 +124,8 @@
                 </div>
 
                 <div class="infoPartida">
-                    <p>Has cometido: <span id="errores">0</span> errores en <span id="intentos">0</span> intentos</p>
+                    <p>Has cometido: <span id="errores">0</span> errores en <span id="intentos">0</span> intentos
+                    </p>
                     <p>Tiempo restante: <span id="tiempo">3:00</span>s</p>
                 </div>
             </div>
