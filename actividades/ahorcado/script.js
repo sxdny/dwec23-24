@@ -26,8 +26,6 @@ let categoryMessage = document.getElementById('categoryMessage');
 
 const menu = document.getElementById('menu');
 
-console.log(menu);
-
 // añadir evento click a cada botón
 categorias.forEach((categoria) => {
     categoria.addEventListener('click', (e) => {
@@ -37,8 +35,74 @@ categorias.forEach((categoria) => {
         seleccionarTipoPalabra(categoriaSeleccionada);
         console.log(categoriaSeleccionada);
 
+        // función para que el jugador introduzca su nombre
+        pedirNombre();
+
     });
 });
+
+let nombre = "";
+
+// ocultamos por defecto los datos del usuario
+document.getElementById('datosUsuario').style.display = "none";
+
+// función para que el jugador introduzca su nombre
+function pedirNombre() {
+    nombre = prompt("Introduce tu nombre:");
+
+    // transformar el nombre a minusculas
+    nombre = nombre.toLowerCase();
+
+    // comprobar si el usuario existe en el localstorage
+    if (localStorage.getItem(nombre)) {
+        // mostramos el div de los datos del usuario
+        document.getElementById('datosUsuario').style.display = "grid";
+        console.log("El usuario existe en el localstorage.");
+        // obtener los datos del usuario del localstorage
+        let datosUsuario = JSON.parse(localStorage.getItem(nombre));
+
+        // mostramos los datos del usuario
+        document.getElementById("nombreUsuario").innerHTML = datosUsuario.nombre;
+        document.getElementById("puntuacionUsuario").innerHTML = datosUsuario.puntuacion;
+        document.getElementById("tiempoUsuario").innerHTML = datosUsuario.tiempo;
+        document.getElementById("partidasJugadasUsuario").innerHTML = datosUsuario.partidas;
+        document.getElementById("partidasGanadasUsuario").innerHTML = datosUsuario.partidasGanadas;
+        document.getElementById("partidasPerdidasUsuario").innerHTML = datosUsuario.partidasPerdidas;
+
+    }
+    else {
+        console.log("El usuario no existe en el localstorage.");
+
+        // un json para guardar los datos del jugador
+        let jugador = {
+            "nombre": nombre,
+            "puntuacion": 0,
+            "tiempo": 0,
+            "partidas": 0,
+            "partidasGanadas": 0,
+            "partidasPerdidas": 0
+        };
+
+        // guardar los datos del usuario en el localstorage
+        localStorage.setItem(nombre, JSON.stringify(jugador));
+
+        // mostramos el div de los datos del usuario
+        document.getElementById('datosUsuario').style.display = "grid";
+
+        // mostramos los datos del usuario
+        document.getElementById("nombreUsuario").innerHTML = jugador.nombre;
+        document.getElementById("puntuacionUsuario").innerHTML = jugador.puntuacion;
+        document.getElementById("tiempoUsuario").innerHTML = jugador.tiempo;
+        document.getElementById("partidasUsuario").innerHTML = jugador.partidas;
+        document.getElementById("partidasGanadasUsuario").innerHTML = jugador.partidasGanadas;
+        document.getElementById("partidasPerdidasUsuario").innerHTML = jugador.partidasPerdidas;
+
+    }
+
+    // mostrar el nombre del jugador en el DOM
+    let nombreDOM = document.getElementById('nombreUsuario');
+    nombreDOM.innerHTML = nombre;
+}
 
 let contador;
 
@@ -54,7 +118,6 @@ const botones = document.getElementsByClassName('letra');
 let opcUsuario = 0;
 
 let arrPalabras = [
-
     {
         "tipo": "perifericos",
         "palabras": [
@@ -79,6 +142,9 @@ let arrPalabras = [
 
 let wordToGuess = "";
 
+// array de jugadores
+let arrJugadores = [];
+
 // función para seleccionar el tipo de palabra
 function seleccionarTipoPalabra(categoria) {
 
@@ -89,8 +155,9 @@ function seleccionarTipoPalabra(categoria) {
         // si la categoría seleccionada es igual a la categoría del array
         if (categoria === palabra.tipo) {
 
+
             // seleccionar una palabra random del array de palabras
-            wordToGuess = palabra.palabras[Math.floor(Math.random() * palabra.palabras.length)];            
+            wordToGuess = palabra.palabras[Math.floor(Math.random() * palabra.palabras.length)];
             // convertir la palabra a array
             wordToGuess = wordToGuess.split("");
 
@@ -109,10 +176,6 @@ function seleccionarTipoPalabra(categoria) {
             teclado.classList.remove("d-none");
             palabraDOM.classList.remove("d-none");
             wordToGuessDOM.classList.remove("d-none");
-        }
-        else {
-            console.log("No hay palabras de este tipo.");
-            console.log("Palabra a averiguar: ", wordToGuess);
         }
     });
 
@@ -160,6 +223,17 @@ for (let i = 0; i < botones.length; i++) {
 
             palabraCorrecta.innerHTML = "La palabra era: " + wordToGuess.join("");
 
+            // obtener los datos del usuario del localstorage
+            let datosUsuario = JSON.parse(localStorage.getItem(nombre));
+
+            // actualizar los datos del usuario
+            datosUsuario.partidas++;
+            datosUsuario.partidasPerdidas++;
+            datosUsuario.tiempo += 180 - parseInt(tiempoDOM.innerHTML);
+
+            // guardar los datos del usuario en el localstorage
+            localStorage.setItem(nombre, JSON.stringify(datosUsuario));
+
             palabraDOM.classList.add("d-none");
             flagContador = false;
 
@@ -168,7 +242,9 @@ for (let i = 0; i < botones.length; i++) {
         intentosDOM.innerHTML = intentos;
 
         if (checkWord()) {
+            clearInterval(contador);
             console.log("Has ganado!");
+
             console.log(teclado);
         }
     });
@@ -188,6 +264,7 @@ for (let i = 0; i < botones.length; i++) {
         }
     });
 }
+
 
 // función que comprueba si la letra está en la palabra
 function checkLetter(letter) {
@@ -234,6 +311,36 @@ function checkWord() {
         mensajeFinal.classList.add("text-success");
         mensajeFinal.innerHTML = "Has ganado!";
 
+        // obtener los datos del usuario del localstorage
+        let datosUsuario = JSON.parse(localStorage.getItem(nombre));
+
+        // actualizar los datos del usuario
+        if (intentos < 10) {
+            datosUsuario.puntuacion += 100;
+        }
+        else if (intentos < 20) {
+            datosUsuario.puntuacion += 50;
+        }
+        else if (intentos < 30) {
+            datosUsuario.puntuacion += 25;
+        }
+        else {
+            datosUsuario.puntuacion += 10;
+        }
+
+        // obtener el tiempo que ha tardado en completar la palabra
+        datosUsuario.tiempo += 180 - parseInt(tiempoDOM.innerHTML);
+
+        datosUsuario.partidas++;
+
+        datosUsuario.partidasGanadas++;
+
+        // guardar los datos del usuario en el localstorage
+        localStorage.setItem(nombre, JSON.stringify(datosUsuario));
+
+        // mostrar los datos del usuario
+        console.table(datosUsuario);
+
     }
 }
 
@@ -275,13 +382,6 @@ function tiempo() {
     }, 1000);
 }
 
-// función para que cuando el jugador empieze a jugar, se inicie un contador de tiempo
-// startGame.addEventListener("click", () => {
-//     startGame.classList.add("d-none");
-//     teclado.classList.remove("d-none");
-//     palabraDOM.classList.remove("d-none");
-//     wordToGuessDOM.classList.remove("d-none");
-// });
 
 // función para resetear el juego
 reset.addEventListener("click", () => {

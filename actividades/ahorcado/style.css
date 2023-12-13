@@ -272,6 +272,27 @@ button[disabled][data-categoria]:hover > img {
     opacity: 1;
 }
 
+#datosUsuario {
+    border: 1px solid white;
+    border-collapse: collapse;
+    margin: 1rem;
+}
+
+#datosUsuario tr {
+    border: 1px solid white;
+}
+
+th {
+    background-color: #242424;
+    border: 1px solid white;
+    padding: 1rem;
+}
+
+tr > td {
+    padding: 0.5rem;
+    border: 1px solid white;
+}
+
 
 /* animación para cambiar el fondo */
 @keyframes gradient {
